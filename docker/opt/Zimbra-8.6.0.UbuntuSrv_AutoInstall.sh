@@ -42,9 +42,9 @@ copyright="Copyright 2016 - ${author}, ${website}"
 
 Disclaimer(){
 echo
-            echo -e "      ==============================================================================="
+            echo -e "      =========================================================================================================="
             echo -e "        ${NOTICE} ${PROGRAM_name} ${NORMAL}"
-            echo -e "      ==============================================================================="
+            echo -e "      =========================================================================================================="
             echo -e ""
             echo -e "        Current version : ${YELLOW}${PROGRAM_CV}${NORMAL}   Latest version : ${GREEN}${PROGRAM_LV}${NORMAL}"
             echo -e ""
@@ -52,9 +52,9 @@ echo
             echo -e "        and baselines.${NORMAL}"
             echo -e ""
             echo -e "        Git Official Repo: https://github.com/richardsonlima/hashId-Zimbra-8.6.0-Docker-FullyAutomated.git"
-            echo -e "        *** ATTENTION: This program was tested on Ubuntu 16.04 desktop "
+            echo -e "        *** ATTENTION: This program was tested on Ubuntu 16.04 Server "
             echo -e "        $copyright "
-            echo -e "      ==============================================================================="
+            echo -e "      =========================================================================================================="
             echo
             sleep 5
 ##
