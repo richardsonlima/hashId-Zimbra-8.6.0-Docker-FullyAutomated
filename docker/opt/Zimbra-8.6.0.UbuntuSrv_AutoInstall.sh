@@ -40,7 +40,7 @@ copyright="Copyright 2016 - ${author}, ${website}"
     BLUE="\033[0;34m"
 #
 
-disclaimer(){
+Disclaimer(){
 echo
             echo -e "      ==============================================================================="
             echo -e "        ${NOTICE} ${PROGRAM_name} ${NORMAL}"
@@ -258,7 +258,7 @@ echo -e '\033[1;32m [✔] Installing Zimbra Collaboration injecting the configur
 sudo /opt/zimbra/libexec/zmsetup.pl -c /tmp/zcs/installZimbraScript
 }
 #####
-
+Disclaimer
 DnsInstall
 CreateZimbraEnv
 DownloadZimbra
