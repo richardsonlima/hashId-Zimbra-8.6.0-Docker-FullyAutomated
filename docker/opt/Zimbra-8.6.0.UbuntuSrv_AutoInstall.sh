@@ -84,7 +84,11 @@ echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
 
+sudo touch  /etc/default/bind9.new
+sudo touch  /etc/bind/named.conf.options
+
 sudo chown `whoami`: /etc/default/bind9
+sudo chown `whoami`:  /etc/default/bind9.new
 sudo chown `whoami`: /etc/bind/named.conf.options
 sudo chown `whoami`: /etc/bind/named.conf.local
 
@@ -272,3 +276,4 @@ DnsInstall
 CreateZimbraEnv
 DownloadZimbra
 InstallZimbra
+
