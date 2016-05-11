@@ -83,11 +83,16 @@ DnsInstall(){ #Install a DNS Server and Zimbra Collaboration 8.6
 echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
+
+sudo chown `whoami`: /etc/default/bind9
+sudo chown `whoami`: /etc/bind/named.conf.options
+sudo chown `whoami`: /etc/bind/named.conf.local
+
 sudo sed "s/-u/-4 -u/g" /etc/default/bind9 > /etc/default/bind9.new
 sudo mv /etc/default/bind9.new /etc/default/bind9
 HOSTNAME=$(hostname -a)
 sudo rm /etc/bind/named.conf.options
-sudo cat <<EOF >>/etc/bind/named.conf.options
+sudo cat <<EOF >> /etc/bind/named.conf.options
 options {
 directory "/var/cache/bind";
 listen-on { $2; }; # ns1 private IP address - listen on private network only
@@ -100,7 +105,7 @@ auth-nxdomain no; # conform to RFC1035
 #listen-on-v6 { any; };
 };
 EOF
-sudo cat <<EOF >>/etc/bind/named.conf.local
+sudo cat <<EOF >> /etc/bind/named.conf.local
 zone "$1" {
         type master;
         file "/etc/bind/db.$1";
@@ -245,6 +250,10 @@ y
 y
 EOF
 }
+
+sudo chown root: /etc/default/bind9
+sudo chown root: /etc/bind/named.conf.options
+sudo chown root: /etc/bind/named.conf.local
 
 DownloadZimbra(){
 echo -e '\033[1;32m [✔] Downloading Zimbra Collaboration 8.6 \033[0m'
