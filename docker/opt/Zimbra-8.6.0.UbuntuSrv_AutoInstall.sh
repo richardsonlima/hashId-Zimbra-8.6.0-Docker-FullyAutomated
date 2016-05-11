@@ -23,11 +23,11 @@ DnsInstall(){ #Install a DNS Server and Zimbra Collaboration 8.6
 echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
-sed "s/-u/-4 -u/g" /etc/default/bind9 > /etc/default/bind9.new
-mv /etc/default/bind9.new /etc/default/bind9
+sudo sed "s/-u/-4 -u/g" /etc/default/bind9 > /etc/default/bind9.new
+sudo mv /etc/default/bind9.new /etc/default/bind9
 HOSTNAME=$(hostname -a)
-rm /etc/bind/named.conf.options
-cat <<EOF >>/etc/bind/named.conf.options
+sudo rm /etc/bind/named.conf.options
+sudo cat <<EOF >>/etc/bind/named.conf.options
 options {
 directory "/var/cache/bind";
 listen-on { $2; }; # ns1 private IP address - listen on private network only
@@ -40,14 +40,14 @@ auth-nxdomain no; # conform to RFC1035
 #listen-on-v6 { any; };
 };
 EOF
-cat <<EOF >>/etc/bind/named.conf.local
+sudo cat <<EOF >>/etc/bind/named.conf.local
 zone "$1" {
         type master;
         file "/etc/bind/db.$1";
 };
 EOF
-touch /etc/bind/db.$1
-cat <<EOF >/etc/bind/db.$1
+sudo touch /etc/bind/db.$1
+sudo cat <<EOF >/etc/bind/db.$1
 \$TTL  604800
 @      IN      SOA    ns1.$1. root.localhost. (
                               2        ; Serial
@@ -74,9 +74,9 @@ CreateZimbraEnv(){
 echo -e '\033[1;32m [✔] Download and install Zimbra Collaboration dependencies \033[0m'
 sudo apt-get install -y netcat-openbsd sudo libidn11 libpcre3 libgmp10 libexpat1 libstdc++6 libperl5.18 libaio1 resolvconf unzip pax sysstat sqlite3
 echo -e '\033[1;32m [✔] Creating the Scripts files \033[0m'
-mkdir /tmp/zcs && cd /tmp/zcs
-touch /tmp/zcs/installZimbraScript
-cat <<EOF >/tmp/zcs/installZimbraScript
+sudo mkdir /tmp/zcs && cd /tmp/zcs
+sudo touch /tmp/zcs/installZimbraScript
+sudo cat <<EOF >/tmp/zcs/installZimbraScript
 AVDOMAIN="$1"
 AVUSER="admin@$1"
 CREATEADMIN="admin@$1"
@@ -193,9 +193,9 @@ tar xzvf zcs-*
 }
 InstallZimbra(){
 echo -e '\033[1;32m [✔] Installing Zimbra Collaboration just the Software \033[0m'
-cd /tmp/zcs/zcs-* && ./install.sh -s < /tmp/zcs/installZimbra-keystrokes
+cd /tmp/zcs/zcs-* && sudo ./install.sh -s < /tmp/zcs/installZimbra-keystrokes
 echo -e '\033[1;32m [✔] Installing Zimbra Collaboration injecting the configuration \033[0m'
-/opt/zimbra/libexec/zmsetup.pl -c /tmp/zcs/installZimbraScript
+sudo /opt/zimbra/libexec/zmsetup.pl -c /tmp/zcs/installZimbraScript
 }
 #####
 
