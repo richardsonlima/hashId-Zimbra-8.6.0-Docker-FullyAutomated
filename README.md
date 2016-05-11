@@ -1,5 +1,12 @@
 # hashId-Zimbra-8.6.0-Docker-FullyAutomated
 
+# Install on Baremetal or Virtual Machine
+If you prefer you can install Zimbra Fully Automated in a Baremetal or Virtual Machine, see instructions below.
+
+```bash
+git clone https://github.com/richardsonlima/hashId-Zimbra-8.6.0-Docker-FullyAutomated.git
+```
+cd Zimbra/hashId-Zimbra-8.6.0-Docker-FullyAutomated/docker/opt && chmod +x ./Zimbra-8.6.0.UbuntuSrv_AutoInstall.sh && ./Zimbra-8.6.0.UbuntuSrv_AutoInstall.sh
 
 ##Advantages of use the Script
  * Time saving
