@@ -12,6 +12,18 @@ copyright="Copyright 2016 - ${author}, ${website}"
 
 # set -x
 
+###
+sudo chmod 777  /tmp/ &&  sudo chmod 777  /tmp/*
+sudo chown `whoami`: /tmp/zcs/installZimbra-keystrokes
+sudo chown `whoami`: /tmp/zcs/installZimbraScript
+sudo chown `whoami`: /etc/default/bind9
+sudo touch  /etc/default/bind9.new
+sudo chown `whoami`:  /etc/default/bind9.new
+sudo touch /etc/bind/named.conf.options
+sudo chown `whoami`: /etc/bind/named.conf.options
+sudo chown `whoami`: /etc/bind/named.conf.local
+###
+
 # Initialize defaults
 # Variable initializing
     PROGRAM_name="hashIdZimbra F.A.Z -  Fully Automated Zimbra Install with option baremetal or virtual machine"
@@ -84,21 +96,22 @@ echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
 
-sudo chmod 777  /tmp/ &&  sudo chmod 777  /tmp/*
-sudo touch  /etc/default/bind9.new
-sudo touch  /etc/bind/named.conf.options
-
-sudo chown `whoami`: /tmp/zcs/installZimbra-keystrokes
-sudo chown `whoami`: /tmp/zcs/installZimbraScript
-sudo chown `whoami`: /etc/default/bind9
-sudo chown `whoami`:  /etc/default/bind9.new
-sudo chown `whoami`: /etc/bind/named.conf.options
-sudo chown `whoami`: /etc/bind/named.conf.local
-
 sudo sed "s/-u/-4 -u/g" /etc/default/bind9 > /etc/default/bind9.new
 sudo mv /etc/default/bind9.new /etc/default/bind9
 HOSTNAME=$(hostname -a)
 sudo rm /etc/bind/named.conf.options
+
+###
+sudo chown `whoami`: /tmp/zcs/installZimbra-keystrokes
+sudo chown `whoami`: /tmp/zcs/installZimbraScript
+sudo chown `whoami`: /etc/default/bind9
+sudo touch  /etc/default/bind9.new
+sudo chown `whoami`:  /etc/default/bind9.new
+sudo touch /etc/bind/named.conf.options
+sudo chown `whoami`: /etc/bind/named.conf.options
+sudo chown `whoami`: /etc/bind/named.conf.local
+###
+
 sudo cat <<EOF >> /etc/bind/named.conf.options
 options {
 directory "/var/cache/bind";
