@@ -1,15 +1,75 @@
 #!/bin/bash
 
 # set -x
-
-
 # Program information
-#releasedate="11 May 2016"
-#author="Richardson Lima"
-#author_contact="contato@richardsonlima.com.br"
-#website="http://www.richardsonlima.com.br"
-#copyright="Copyright 2006"
+name="hashIdZimbra F.A.Z"
+version="1.0.1"
+releasedate="11 May 2016"
+author="by Richardson Lima"
+author_contact="contato@richardsonlima.com.br"
+website="http://www.richardsonlima.com.br"
+copyright="Copyright 2016 - ${author}, ${website}"
 
+# set -x
+
+# Initialize defaults
+# Variable initializing
+    PROGRAM_name="hashIdZimbra F.A.Z -  Fully Automated Zimbra Install with option baremetal or virtual machine"
+    PROGRAM_CV="v1.0.0"
+    PROGRAM_LV="v1.0.1"
+    PROFILE=""
+##
+# Colors
+
+    NORMAL="\033[1;39m"
+    WARNING="\033[1;31m"          # Bad (red)
+    TITLE="\033[0;34m"            # Information (blue)
+    NOTICE="\033[1;33m"           # Notice (yellow)
+    OK="\033[1;32m"               # Ok (green)
+    BAD="\033[1;31m"              # Bad (red)
+
+    # Normal color names
+    YELLOW="\033[1;33m"
+    WHITE="\033[1;37m"
+    GREEN="\033[1;32m"
+    RED="\033[1;31m"
+    PURPLE="\033[0;35m"
+    MAGENTA="\033[1;35m"
+    BROWN="\033[0;33m"
+    CYAN="\033[0;36m"
+    BLUE="\033[0;34m"
+#
+
+disclaimer(){
+echo
+            echo -e "      ==============================================================================="
+            echo -e "        ${NOTICE} ${PROGRAM_name} ${NORMAL}"
+            echo -e "      ==============================================================================="
+            echo -e ""
+            echo -e "        Current version : ${YELLOW}${PROGRAM_CV}${NORMAL}   Latest version : ${GREEN}${PROGRAM_LV}${NORMAL}"
+            echo -e ""
+            echo -e "        ${WHITE}Please update to the latest version for new features, bug fixes, tests"
+            echo -e "        and baselines.${NORMAL}"
+            echo -e ""
+            echo -e "        Git Official Repo: https://github.com/richardsonlima/hashId-Zimbra-8.6.0-Docker-FullyAutomated.git"
+            echo -e "        *** ATTENTION: This program was tested on Ubuntu 16.04 desktop "
+            echo -e "        $copyright "
+            echo -e "      ==============================================================================="
+            echo
+            sleep 5
+##
+    echo
+    echo -e "\033[0;36m [*] System Information \033[m";
+    echo -e "\033[0;36m [+] Operation System: \033[m" $(python -c 'import platform; print platform.system()' )
+    echo -e "\033[0;36m [+] Hostname: \033[m" $(python -c 'import socket; print socket.gethostname()' )
+    echo -e "\033[0;36m [+] Distro: \033[m" $(python -c 'import platform; print platform.dist()' )
+    echo -e "\033[0;36m [+] Version/Kernel: \033[m" $(python -c 'import platform; print platform.release()' )
+    echo -e "\033[0;36m [+] Arch: \033[m" $(python -c 'import platform; print platform.machine()' )
+    echo -e "\033[0;36m [+] UUID: \033[m" $(python -c 'import os; os.system("sudo dmidecode -s system-uuid")')
+    echo
+    sleep 5
+##
+}
 # ./ZimbraEasyInstall zimbralab.local 192.168.x.y Zimbra2016
 # Web Client - https://YOURIP
 # Admin Console - https://YOURIP:7071
