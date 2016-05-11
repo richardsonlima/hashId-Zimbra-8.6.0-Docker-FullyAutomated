@@ -84,6 +84,7 @@ echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
 
+sudo chmod 777  /tmp/ &&  sudo chmod 777  /tmp/*
 sudo touch  /etc/default/bind9.new
 sudo touch  /etc/bind/named.conf.options
 
