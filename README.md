@@ -8,11 +8,11 @@ git clone https://github.com/richardsonlima/hashId-Zimbra-8.6.0-Docker-FullyAuto
 ```
 
 ```bash
-cd hashId-Zimbra-8.6.0-Docker-FullyAutomated/docker/opt && chmod +x
+cd hashId-Zimbra-8.6.0-Docker-FullyAutomated/docker/opt && chmod +x *.sh
 ```
 
 ```bash
- ./Zimbra-8.6.0.UbuntuSrv_AutoInstall.sh && ./Zimbra-8.6.0.UbuntuSrv_AutoInstall.sh
+./Zimbra-8.6.0.UbuntuSrv_AutoInstall.sh
 ```
 
 ##Advantages of use the Script
