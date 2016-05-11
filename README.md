@@ -8,7 +8,7 @@ git clone https://github.com/richardsonlima/hashId-Zimbra-8.6.0-Docker-FullyAuto
 ```
 
 ```bash
-cd hashId-Zimbra-8.6.0-Docker-FullyAutomated/docker/opt && chmod +x *.sh
+cd hashId-Zimbra-8.6.0-Docker-FullyAutomated && chmod +x *.sh
 ```
 
 ```bash
