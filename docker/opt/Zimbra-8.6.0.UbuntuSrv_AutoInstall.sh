@@ -96,22 +96,22 @@ echo -e '\033[1;32m [✔] Installing DNS Server \033[0m'
 sudo apt-get update && sudo sudo apt-get install -y bind9 bind9utils bind9-doc
 echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
 
+sudo service bind9 stop 
+
+###
+sudo touch /etc/default/bind9.new
+sudo chown `whoami`: /etc/default/bind9.new
+sudo chown `whoami`: /etc/default/bind9
+
 sudo sed "s/-u/-4 -u/g" /etc/default/bind9 > /etc/default/bind9.new
 sudo mv /etc/default/bind9.new /etc/default/bind9
 HOSTNAME=$(hostname -a)
 sudo rm /etc/bind/named.conf.options
+sudo rm /etc/bind/named.conf.local
+sudo rm /etc/bind/db.$1
 
-###
-sudo chown `whoami`: /tmp/zcs/installZimbra-keystrokes
-sudo chown `whoami`: /tmp/zcs/installZimbraScript
-sudo chown `whoami`: /etc/default/bind9
-sudo touch  /etc/default/bind9.new
-sudo chown `whoami`:  /etc/default/bind9.new
 sudo touch /etc/bind/named.conf.options
 sudo chown `whoami`: /etc/bind/named.conf.options
-sudo chown `whoami`: /etc/bind/named.conf.local
-###
-
 sudo cat <<EOF >> /etc/bind/named.conf.options
 options {
 directory "/var/cache/bind";
@@ -125,6 +125,9 @@ auth-nxdomain no; # conform to RFC1035
 #listen-on-v6 { any; };
 };
 EOF
+
+sudo touch /etc/bind/named.conf.local
+sudo chown `whoami`: /etc/bind/named.conf.local
 sudo cat <<EOF >> /etc/bind/named.conf.local
 zone "$1" {
         type master;
@@ -132,6 +135,7 @@ zone "$1" {
 };
 EOF
 sudo touch /etc/bind/db.$1
+sudo chown `whoami`:  /etc/bind/db.$1
 sudo cat <<EOF >/etc/bind/db.$1
 \$TTL  604800
 @      IN      SOA    ns1.$1. root.localhost. (
@@ -152,16 +156,23 @@ imap     IN      A      $2
 imap4     IN      A      $2
 smtp     IN      A      $2
 EOF
-sudo service bind9 restart
+
+sudo chown root: /etc/default/bind9
+sudo chown root: /etc/default/bind9.new
+sudo chown root: /etc/bind/named.conf.options
+sudo chown root: /etc/bind/named.conf.local
+
+sudo service bind9 stop && sudo service bind9 start
 }
 
 CreateZimbraEnv(){
 echo -e '\033[1;32m [✔] Download and install Zimbra Collaboration dependencies \033[0m'
 sudo apt-get install -y netcat-openbsd sudo libidn11 libpcre3 libgmp10 libexpat1 libstdc++6 libperl5.18 libaio1 resolvconf unzip pax sysstat sqlite3
 echo -e '\033[1;32m [✔] Creating the Scripts files \033[0m'
-sudo mkdir /tmp/zcs && cd /tmp/zcs
+sudo mkdir -p /tmp/zcs && cd /tmp/zcs
 sudo touch /tmp/zcs/installZimbraScript
-sudo cat <<EOF >/tmp/zcs/installZimbraScript
+sudo chown `whoami`: /tmp/zcs/installZimbraScript
+sudo cat <<EOF > /tmp/zcs/installZimbraScript
 AVDOMAIN="$1"
 AVUSER="admin@$1"
 CREATEADMIN="admin@$1"
@@ -254,7 +265,8 @@ zimbra_ldap_userdn="uid=zimbra,cn=admins,cn=zimbra"
 zimbra_require_interprocess_security="1"
 INSTALL_PACKAGES="zimbra-core zimbra-ldap zimbra-logger zimbra-mta zimbra-snmp zimbra-store zimbra-apache zimbra-spell zimbra-memcached zimbra-proxy"
 EOF
-touch /tmp/zcs/installZimbra-keystrokes
+sudo touch /tmp/zcs/installZimbra-keystrokes
+sudo chown `whoami`: /tmp/zcs/installZimbra-keystrokes
 cat <<EOF >/tmp/zcs/installZimbra-keystrokes
 y
 y
@@ -270,11 +282,6 @@ y
 y
 EOF
 }
-
-sudo chown root: /etc/default/bind9
-sudo chown root: /etc/default/bind9.new
-sudo chown root: /etc/bind/named.conf.options
-sudo chown root: /etc/bind/named.conf.local
 
 DownloadZimbra(){
 echo -e '\033[1;32m [✔] Downloading Zimbra Collaboration 8.6 \033[0m'
