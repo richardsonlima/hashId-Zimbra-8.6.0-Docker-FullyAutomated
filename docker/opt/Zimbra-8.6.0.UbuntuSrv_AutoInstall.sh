@@ -87,6 +87,7 @@ echo -e '\033[1;32m [✔] Configuring DNS Server \033[0m'
 sudo touch  /etc/default/bind9.new
 sudo touch  /etc/bind/named.conf.options
 
+sudo chown `whoami`: /tmp/zcs/installZimbraScript
 sudo chown `whoami`: /etc/default/bind9
 sudo chown `whoami`:  /etc/default/bind9.new
 sudo chown `whoami`: /etc/bind/named.conf.options
@@ -256,6 +257,7 @@ EOF
 }
 
 sudo chown root: /etc/default/bind9
+sudo chown root: /etc/default/bind9.new
 sudo chown root: /etc/bind/named.conf.options
 sudo chown root: /etc/bind/named.conf.local
 
